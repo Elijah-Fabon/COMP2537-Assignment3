@@ -68,7 +68,7 @@ const setup = async () => {
   for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < pokemon.length; i++) {
     console.log(i);
   // for (let i = 0; i < pokemon.length; i++) {
-    let innerResponse = await axios.get('${pokemon[i].url}');
+    let innerResponse = await axios.get(`${pokemon[i].url}`);
     let thisPokemon = innerResponse.data;
     $('#pokemon').append(`
     <div class="pokeCard card" pokeName="${thisPokemon.name}">
