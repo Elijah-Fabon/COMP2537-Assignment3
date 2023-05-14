@@ -6,7 +6,7 @@ const numPageBtn = 5;
 
 const setup = async () => {
   // test out pokeapi using axios here
-  let response = await axios.get('https://pokeapi.co/api/v2/pokemon/1');
+  let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=810');
   console.log(response.data.results);
 
   pokemon = response.data.results;
