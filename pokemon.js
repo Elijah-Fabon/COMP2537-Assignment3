@@ -2,7 +2,7 @@ var pokemon = [];
 
 const numPerPage = 10;
 var numPages = 0;
-const numPageBtn = 15;
+const numPageBtn = 5;
 
 const setup = async () => {
   // test out pokeapi using axios here
