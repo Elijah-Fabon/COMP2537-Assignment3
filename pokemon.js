@@ -103,6 +103,7 @@ const setup = async () => {
       selectedTypes.delete(type);
     }
 
+    filteredPokemon = [];
     filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
