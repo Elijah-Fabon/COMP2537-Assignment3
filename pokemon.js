@@ -122,13 +122,13 @@ const setup = async () => {
   console.log(pokemon.length);
 
   $("#countText").empty();
-  $("#countText").text(`Showing ${(currentPage - 1) * numPerPage + 1} to ${numPerPage * currentPage} of ${pokemon.length} Pokémon`);
+  $("#countText").text(`Showing ${(currentPage - 1) * numPerPage + 1} to ${numPerPage * currentPage} of ${filteredPokemon.length} Pokémon`);
 
   $('#pokemon').empty();
-  for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < pokemon.length; i++) {
+  for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < filteredPokemon.length; i++) {
     console.log(i);
   // for (let i = 0; i < pokemon.length; i++) {
-    let innerResponse = await axios.get(`${pokemon[i].url}`);
+    let innerResponse = await axios.get(`${filteredPokemon[i].url}`);
     let thisPokemon = innerResponse.data;
     $('#pokemon').append(`
     <div class="pokeCard card" pokeName="${thisPokemon.name}">
