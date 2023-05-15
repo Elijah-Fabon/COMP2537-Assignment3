@@ -1,4 +1,6 @@
 var pokemon = [];
+var filteredPokemon = [];
+var selectedTypes = new Set();
 
 const numPerPage = 10;
 var numPages = 0;
@@ -10,6 +12,18 @@ const setup = async () => {
   console.log(response.data.results);
 
   pokemon = response.data.results;
+  filteredPokemon = pokemon.filter((monster) => {
+    if (selectedTypes.size === 0) return true;
+    let hasAllSelectedTypes = true;
+    for (let type of selectedTypes) {
+      if (!monster.types.includes(type)) {
+        hasAllSelectedTypes = false;
+        break;
+      }
+    }
+    return hasAllSelectedTypes;
+  });
+  console.log(filteredPokemon);
   numPages = Math.ceil(pokemon.length / numPerPage);
   console.log(numPages);
 
@@ -49,21 +63,6 @@ const setup = async () => {
     showPage(pageNum);
   });
 
-  console.log('setup finished');
-
-  async function showPage(currentPage) {
-    if (currentPage < 1) {
-      currentPage = 1;
-    }
-    if (currentPage > numPages) {
-      currentPage = numPages;
-    }
-
-  console.log(currentPage);
-  console.log((currentPage - 1) * numPerPage);
-  console.log(((currentPage - 1) * numPerPage) + numPerPage);
-  console.log(pokemon.length);
-
   const types = [
     "normal",
     "fighting",
@@ -96,8 +95,32 @@ const setup = async () => {
     `);
   });
 
+  $("body").on("change", ".form-check-input", function (e) {
+    const type = e.target.value;
+    if (e.target.checked) {
+      selectedTypes.add(type);
+    } else {
+      selectedTypes.delete(type);
+    }
+  });
+
+  console.log('setup finished');
+
+  async function showPage(currentPage) {
+    if (currentPage < 1) {
+      currentPage = 1;
+    }
+    if (currentPage > numPages) {
+      currentPage = numPages;
+    }
+
+  console.log(currentPage);
+  console.log((currentPage - 1) * numPerPage);
+  console.log(((currentPage - 1) * numPerPage) + numPerPage);
+  console.log(pokemon.length);
+
   $("#countText").empty();
-  $("#countText").text(`Showing ${(numPerPage * currentPage) - 9} to ${numPerPage * currentPage} of ${pokemon.length} Pokémon`);
+  $("#countText").text(`Showing ${(currentPage - 1) * numPerPage + 1} to ${numPerPage * currentPage} of ${pokemon.length} Pokémon`);
 
   $('#pokemon').empty();
   for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < pokemon.length; i++) {
