@@ -97,11 +97,13 @@ const setup = async () => {
 
   $("body").on("change", ".form-check-input", function (e) {
     const type = e.target.value;
+    console.log(type);
     if (e.target.checked) {
       selectedTypes.add(type);
     } else {
       selectedTypes.delete(type);
     }
+    console.log(selectedTypes);
 
     filteredPokemon = [];
     filteredPokemon = pokemon.filter((monster) => {
