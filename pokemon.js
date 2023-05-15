@@ -12,6 +12,18 @@ const setup = async () => {
   console.log(response.data.results);
 
   pokemon = response.data.results;
+  filteredPokemon = pokemon.filter((monster) => {
+    if (selectedTypes.size === 0) return true;
+    let hasAllSelectedTypes = true;
+    for (let type of selectedTypes) {
+      if (!monster.types.includes(type)) {
+        hasAllSelectedTypes = false;
+        break;
+      }
+    }
+    return hasAllSelectedTypes;
+  });
+  console.log(filteredPokemon);
   numPages = Math.ceil(pokemon.length / numPerPage);
   console.log(numPages);
 
@@ -91,6 +103,19 @@ const setup = async () => {
       selectedTypes.delete(type);
     }
 
+    filteredPokemon = pokemon.filter((monster) => {
+    if (selectedTypes.size === 0) return true;
+    let hasAllSelectedTypes = true;
+    for (let type of selectedTypes) {
+      if (!monster.types.includes(type)) {
+        hasAllSelectedTypes = false;
+        break;
+      }
+    }
+      return hasAllSelectedTypes;
+    });
+    console.log(filteredPokemon);
+
     showPage(1);
   });
 
@@ -104,22 +129,10 @@ const setup = async () => {
       currentPage = numPages;
     }
 
-  filteredPokemon = pokemon.filter((monster) => {
-    if (selectedTypes.size === 0) return true;
-    let hasAllSelectedTypes = true;
-    for (let type of selectedTypes) {
-      if (!monster.types.includes(type)) {
-        hasAllSelectedTypes = false;
-        break;
-      }
-    }
-    return hasAllSelectedTypes;
-  });
-  console.log(filteredPokemon);
   console.log(currentPage);
   console.log((currentPage - 1) * numPerPage);
   console.log(((currentPage - 1) * numPerPage) + numPerPage);
-  console.log(filteredPokemon.length);
+  console.log(pokemon.length);
 
   $("#countText").empty();
   $("#countText").text(`Showing ${(currentPage - 1) * numPerPage + 1} to ${numPerPage * currentPage} of ${filteredPokemon.length} Pokémon`);
