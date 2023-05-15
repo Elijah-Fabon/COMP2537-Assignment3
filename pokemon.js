@@ -64,6 +64,38 @@ const setup = async () => {
   console.log(((currentPage - 1) * numPerPage) + numPerPage);
   console.log(pokemon.length);
 
+  const types = [
+    "normal",
+    "fighting",
+    "flying",
+    "poison",
+    "ground",
+    "rock",
+    "bug",
+    "ghost",
+    "steel",
+    "fire",
+    "water",
+    "grass",
+    "electric",
+    "psychic",
+    "ice",
+    "dragon",
+    "dark",
+    "fairy"
+  ];
+
+  types.forEach((type) => {
+    $("#typeFilters").append(`
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="${type}" id="${type}">
+        <label class="form-check-label" for="${type}">
+          ${type}
+        </label>
+      </div>
+    `);
+  });
+
   $('#pokemon').empty();
   for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < pokemon.length; i++) {
     console.log(i);
