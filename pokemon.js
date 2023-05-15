@@ -96,6 +96,9 @@ const setup = async () => {
     `);
   });
 
+  $("#countText").empty();
+  $("#countText").text(`Showing ${(numPerPage * currentPage) - 9} to ${numPerPage * currentPage} of ${pokemon.length} Pokémon`);
+
   $('#pokemon').empty();
   for (let i = (currentPage - 1) * numPerPage; i < ((currentPage - 1) * numPerPage) + numPerPage && i < pokemon.length; i++) {
     console.log(i);
