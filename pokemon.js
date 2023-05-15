@@ -102,6 +102,8 @@ const setup = async () => {
     } else {
       selectedTypes.delete(type);
     }
+
+    showPage(1);
   });
 
   console.log('setup finished');
