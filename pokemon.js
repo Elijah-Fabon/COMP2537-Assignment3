@@ -13,8 +13,7 @@ const setup = async () => {
 
   async function getPokemonTypes(monster) {
     let res = await axios.get(monster.url);
-    types = res.data.types.map((type) => type.type.name);
-    return types;
+    return res.data.types.map((type) => type.type.name);
   }
   
   pokemon = response.data.results;
