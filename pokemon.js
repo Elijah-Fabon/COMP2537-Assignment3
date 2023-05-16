@@ -8,7 +8,7 @@ const numPageBtn = 5;
 
 const setup = async () => {
   // test out pokeapi using axios here
-  let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=810');
+  let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=1281');
   console.log(response.data.results);
   
   pokemon = response.data.results.map((monster) => {
