@@ -115,6 +115,7 @@ const setup = async () => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
     let types = getPokemonTypes(monster);
+    console.log(types);
     for (let type of selectedTypes) {
       if (!types.includes(type)) {
         hasAllSelectedTypes = false;
