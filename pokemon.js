@@ -11,12 +11,18 @@ const setup = async () => {
   let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=810');
   console.log(response.data.results);
 
+  async function getPokemonTypes(monster) {
+    let res = await axios.get(monster.url);
+    return res.data.types.map((type) => type.type.name);
+  }
+  
   pokemon = response.data.results;
   filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
+    let types = getPokemonTypes(monster);
     for (let type of selectedTypes) {
-      if (!monster.types.includes(type)) {
+      if (!types.includes(type)) {
         hasAllSelectedTypes = false;
         break;
       }
@@ -39,7 +45,6 @@ const setup = async () => {
     console.log(res.data);
     const types = res.data.types.map((type) => type.type.name);
     console.log(types);
-    console.log(res.data.types);
     $('.modal-body').html(`
       <div style="width: 200px">
         <img src="${res.data.sprites.other['official-artwork'].front_default}" alt="${pokemonName}">
@@ -106,19 +111,19 @@ const setup = async () => {
     }
     console.log(selectedTypes);
 
-    filteredPokemon = [];
     filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
+    let types = getPokemonTypes(monster);
     for (let type of selectedTypes) {
-      if (!monster.types.includes(type)) {
+      if (!types.includes(type)) {
         hasAllSelectedTypes = false;
         break;
       }
     }
-      return hasAllSelectedTypes;
-    });
-    console.log(filteredPokemon);
+    return hasAllSelectedTypes;
+  });
+  console.log(filteredPokemon);
 
     showPage(1);
   });
