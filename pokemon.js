@@ -76,26 +76,7 @@ const setup = async () => {
     showPage(pageNum);
   });
 
-  const types = [
-    "normal",
-    "fighting",
-    "flying",
-    "poison",
-    "ground",
-    "rock",
-    "bug",
-    "ghost",
-    "steel",
-    "fire",
-    "water",
-    "grass",
-    "electric",
-    "psychic",
-    "ice",
-    "dragon",
-    "dark",
-    "fairy"
-  ];
+  const types = await axios.get('https://pokeapi.co/api/v2/type');
 
   types.forEach((type) => {
     $("#typeFilters").append(`
