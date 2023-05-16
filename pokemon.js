@@ -39,6 +39,7 @@ const setup = async () => {
     console.log(res.data);
     const types = res.data.types.map((type) => type.type.name);
     console.log(types);
+    console.log(res.data.types);
     $('.modal-body').html(`
       <div style="width: 200px">
         <img src="${res.data.sprites.other['official-artwork'].front_default}" alt="${pokemonName}">
