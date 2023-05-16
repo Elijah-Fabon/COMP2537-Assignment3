@@ -76,8 +76,8 @@ const setup = async () => {
     showPage(pageNum);
   });
 
-  const types = await axios.get('https://pokeapi.co/api/v2/type');
-
+  const typeres = await axios.get('https://pokeapi.co/api/v2/type');
+  const types = typeres.data.results.map((type) => type.name);
   types.forEach((type) => {
     $("#typeFilters").append(`
       <div class="form-check">
