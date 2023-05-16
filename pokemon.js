@@ -1,6 +1,6 @@
 var pokemon = [];
-var filteredPokemon = [];
-var selectedTypes = new Set();
+let filteredPokemon = [];
+let selectedTypes = new Set();
 
 const numPerPage = 10;
 var numPages = 0;
