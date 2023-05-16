@@ -147,7 +147,7 @@ const setup = async () => {
   console.log(currentPage);
   console.log((currentPage - 1) * numPerPage);
   console.log(((currentPage - 1) * numPerPage) + numPerPage);
-  console.log(pokemon.length);
+  console.log(filteredPokemon.length);
 
   $("#countText").empty();
   $("#countText").text(`Showing ${(currentPage - 1) * numPerPage + 1} to ${numPerPage * currentPage} of ${filteredPokemon.length} Pokémon`);
