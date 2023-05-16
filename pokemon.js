@@ -10,11 +10,6 @@ const setup = async () => {
   // test out pokeapi using axios here
   let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=810');
   console.log(response.data.results);
-
-  async function getPokemonTypes(monster) {
-    let res = await axios.get(monster.url);
-    return res.data.types.map((type) => type.type.name);
-  }
   
   pokemon = response.data.results;
   filteredPokemon = pokemon.filter((monster) => {
@@ -110,6 +105,11 @@ const setup = async () => {
       selectedTypes.delete(type);
     }
     console.log(selectedTypes);
+
+    async function getPokemonTypes(monster) {
+    let res = await axios.get(monster.url);
+    return res.data.types.map((type) => type.type.name);
+  }
 
     filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
