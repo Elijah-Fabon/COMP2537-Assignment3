@@ -13,7 +13,8 @@ const setup = async () => {
 
   async function getPokemonTypes(monster) {
     let res = await axios.get(monster.url);
-    return res.data.types.map((type) => type.type.name);
+    types = res.data.types.map((type) => type.type.name);
+    return types;
   }
   
   pokemon = response.data.results;
@@ -101,7 +102,7 @@ const setup = async () => {
     `);
   });
 
-  $("body").on("change", ".form-check-input", function (e) {
+  $("body").on("change", ".form-check-input", async function (e) {
     const type = e.target.value;
     console.log(type);
     if (e.target.checked) {
