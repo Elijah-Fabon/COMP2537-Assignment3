@@ -11,13 +11,25 @@ const setup = async () => {
   let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset0&limit=810');
   console.log(response.data.results);
   
-  pokemon = response.data.results;
+  pokemon = response.data.results.map((monster) => {
+    return {
+      ...monster,
+      types: [], // add an empty types array for now
+    };
+  });
+
+  await Promise.all(
+    pokemon.map(async (monster) => {
+      const res = await axios.get(monster.url);
+      monster.types = res.data.types.map((type) => type.type.name);
+    })
+  );
+
   filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
-    let types = getPokemonTypes(monster);
     for (let type of selectedTypes) {
-      if (!types.includes(type)) {
+      if (!monster.types.includes(type)) {
         hasAllSelectedTypes = false;
         break;
       }
@@ -106,18 +118,11 @@ const setup = async () => {
     }
     console.log(selectedTypes);
 
-    async function getPokemonTypes(monster) {
-    let res = await axios.get(monster.url);
-    return res.data.types.map((type) => type.type.name);
-  }
-
     filteredPokemon = pokemon.filter((monster) => {
     if (selectedTypes.size === 0) return true;
     let hasAllSelectedTypes = true;
-    let types = getPokemonTypes(monster);
-    console.log(types);
     for (let type of selectedTypes) {
-      if (!types.includes(type)) {
+      if (!monster.types.includes(type)) {
         hasAllSelectedTypes = false;
         break;
       }
